@@ -1,4 +1,0 @@
-Discovered a more effieienct way to query the disgenet database.
-This have been converted into python code and will probably be used in 
-the final version of the code. Design of the code is almost done, also, 
-other stylistic options are being concidered at this time.

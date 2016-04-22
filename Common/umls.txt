@@ -1,0 +1,3 @@
+Alzheimer's Disease | umls:C0002395
+Alzheimer Disease, Early Onset | umls:C0750901
+Alzheimer Disease, Late Onset | umls:C0494463

@@ -1,32 +1,59 @@
 import urllib2
 class DiseaseUtil:
 	query_result = None
-	def __init__(self,diseaseName):
+	def __init__(self,diseaseName, umls=False):
 		global query_result
-		query=("""
-		DEFINE
-			c0='/data/gene_disease_summary',
-			c1='/data/diseases',
-			c2='/data/genes',
-			c3='/data/gene_roles',
-			c4='/data/sources'
-		ON
-			'http://www.disgenet.org/web/DisGeNET'
-		SELECT
-			c1 (cui, name, diseaseClassName, STY),
-			c2 (uniprotId),
-			c0 (score, diseaseId, pmids, geneId)
-		FROM
-			c0
-		WHERE
-			(
-				c1.name = '%s'
-			AND
-				c4 = 'ALL'
-			)
-		ORDER BY
-			c0.score DESC
-			""" % diseaseName)
+		if umls:
+			query=("""
+			DEFINE
+				c0='/data/gene_disease_summary',
+				c1='/data/diseases',
+				c2='/data/genes',
+				c3='/data/gene_roles',
+				c4='/data/sources'
+			ON
+				'http://www.disgenet.org/web/DisGeNET'
+			SELECT
+				c1 (cui, name, diseaseClassName, STY),
+				c2 (uniprotId),
+				c0 (score, diseaseId, pmids, geneId)
+			FROM
+				c0
+			WHERE
+				(
+					c1 = '%s'
+				AND
+					c4 = 'ALL'
+				)
+			ORDER BY
+				c0.score DESC
+				""" % diseaseName)
+		else:
+			query=("""
+			DEFINE
+				c0='/data/gene_disease_summary',
+				c1='/data/diseases',
+				c2='/data/genes',
+				c3='/data/gene_roles',
+				c4='/data/sources'
+			ON
+				'http://www.disgenet.org/web/DisGeNET'
+			SELECT
+				c1 (cui, name, diseaseClassName, STY),
+				c2 (uniprotId),
+				c0 (score, diseaseId, pmids, geneId)
+			FROM
+				c0
+			WHERE
+				(
+					c1.name = '%s'
+				AND
+					c4 = 'ALL'
+				)
+			ORDER BY
+				c0.score DESC
+				""" % diseaseName)
+
 
 		req = urllib2.Request("http://www.disgenet.org/oql")
 		query_result = urllib2.urlopen(req, query)
@@ -63,9 +90,3 @@ class DiseaseUtil:
 
 	def getGeneID(self):
 		return query_result.split('\t')[8]
-
-def main():
-	x = DiseaseUtil('Diabetes')
-	print x.getUniprotID()
-if __name__ == '__main__':
-	main()
