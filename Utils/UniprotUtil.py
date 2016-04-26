@@ -1,8 +1,14 @@
+"""
+Keegan Shudy
+This class will be used to generate a fasta file (in protein format)
+associated with the given Disease from the DiseaseUtil class
+"""
+
 from BeautifulSoup import BeautifulSoup
 import urllib2
 import os
 from DiseaseUtil import DiseaseUtil
-class UniprotUtil():
+class UniprotUtil:
 
 	utils = None
 	def __init__(self, diseaseName, umls=False):
@@ -14,13 +20,6 @@ class UniprotUtil():
 		soup = BeautifulSoup(conn)
 		div = soup.find('pre')
 		output =  str(soup).replace('&gt;', '>')
-		file = open('../FASTA/' + utils.getName() + '.fasta', 'w')
+		file = open('FASTA/' + utils.getName() + '.fasta', 'w')
 		file.write(output)
 		file.close()
-
-def main():
-	x = UniprotUtil("umls:C0002395", True)
-	x.generateFasta()
-
-if __name__ == '__main__':
-	main()

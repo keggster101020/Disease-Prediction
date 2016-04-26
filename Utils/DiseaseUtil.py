@@ -1,3 +1,10 @@
+"""
+Keegan Shudy
+This class will be used to query the DisGeNet database looking for a given disease name or ID
+only the most related Gene associated with the disease will be returned
+This class can then be used to retreve information about the disease
+"""
+
 import urllib2
 class DiseaseUtil:
 	query_result = None
@@ -80,7 +87,7 @@ class DiseaseUtil:
 		return query_result.split('\t')[4]
 
 	def getScore(self):
-		return query_result.split('\t')[5]
+		return float(query_result.split('\t')[5])
 
 	def getDiseaseID(self):
 		return query_result.split('\t')[6]
