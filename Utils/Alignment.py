@@ -25,4 +25,4 @@ class Alignment:
 		maxScore = alns[0][2]
 		alns = pairwise2.align.globaldx(seq1,seq2, matrix)
 		lscore = alns[0][2]
-		return (lscore / maxScore) * 100
+		return (1-(lscore / maxScore)) * 100
