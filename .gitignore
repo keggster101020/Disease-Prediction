@@ -1,2 +1,4 @@
 #Ignoring Temp files
 *.*~
+LICENSE.md
+.gitattributes
